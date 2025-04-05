@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nexobotics-rag-chatbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn api.index:app
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: CHROMA_PERSIST_DIR
+        value: ./chromadb_data
+      - key: DEBUG
+        value: false

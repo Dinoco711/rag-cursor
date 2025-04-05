@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexobotics Chatbot Test</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #0078d7;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .container {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #0078d7;
+        margin-top: 0;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 8px;
+        cursor: pointer;
+        color: #0078d7;
+      }
+      li:hover {
+        text-decoration: underline;
+      }
+      .note {
+        background-color: #fffde7;
+        padding: 10px 15px;
+        border-left: 4px solid #ffd600;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nexobotics Chatbot Test Page</h1>
+
+    <div class="container">
+      <h2>About This Test</h2>
+      <p>
+        This page demonstrates the Nexobotics customer service chatbot powered
+        by Retrieval-Augmented Generation (RAG) technology. The chatbot uses a
+        knowledge base to answer questions about Nexobotics products and
+        services.
+      </p>
+    </div>
+
+    <div class="container">
+      <h2>Sample Questions</h2>
+      <p>Click on any question below to ask the chatbot:</p>
+      <ul id="sample-questions">
+        <li>What services does Nexobotics offer?</li>
+        <li>Tell me about the RoboArm Pro</li>
+        <li>How can I contact technical support?</li>
+        <li>What is your warranty policy?</li>
+        <li>How does your training work?</li>
+        <li>What industries do you serve?</li>
+        <li>Where are your offices located?</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>Note:</strong> Make sure the backend server is running at
+      <code>http://localhost:5000</code> before testing the chatbot.
+    </div>
+
+    <!-- Load the chatbot script -->
+    <script src="../website/chatbot.js"></script>
+
+    <script>
+      // Initialize the chatbot when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        // Create the chatbot with configuration
+        const chatbot = new NexoboticsChat({
+          serverUrl: "http://localhost:5000/chat",
+          position: "bottom-right",
+          title: "Nexobotics Support",
+          initialMessage:
+            "Hello! I'm NOVA, your Nexobotics support assistant. How can I help you today?",
+        });
+
+        // Handle clicks on sample questions
+        const questions = document.querySelectorAll("#sample-questions li");
+        questions.forEach((question) => {
+          question.addEventListener("click", function () {
+            // Open the chat if it's closed
+            chatbot.open();
+
+            // Send the question to the chatbot
+            setTimeout(() => {
+              chatbot.sendMessage(this.textContent);
+            }, 500);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
