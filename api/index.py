@@ -118,6 +118,22 @@ def health_check():
     """Health check endpoint to verify the API is running."""
     return jsonify({'status': 'healthy', 'service': 'nexobotics-chatbot-api'})
 
+import threading
+import time
+import requests
+
+def keep_awake():
+    url = "https://rag-cursor.onrender.com/health"  # Use your actual Render URL and a lightweight endpoint
+    while True:
+        try:
+            requests.get(url, timeout=5)
+        except Exception:
+            pass
+        time.sleep(15)
+
+# Start the self-ping in a background thread
+threading.Thread(target=keep_awake, daemon=True).start()
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))  # Render uses the PORT environment variable
     
