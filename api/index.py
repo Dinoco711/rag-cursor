@@ -123,7 +123,7 @@ import time
 import requests
 
 def keep_awake():
-    url = "https://rag-cursor.onrender.com/health"  # Use your actual Render URL and a lightweight endpoint
+    url = "https://rag-cursor.onrender.com/chat"  # Use your actual Render URL and a lightweight endpoint
     while True:
         try:
             requests.get(url, timeout=5)
